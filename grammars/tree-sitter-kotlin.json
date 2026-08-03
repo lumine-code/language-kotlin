@@ -1,7 +1,7 @@
 {
   "name": "Kotlin",
   "scopeName": "source.kotlin",
-  "type": "modern-tree-sitter",
+  "type": "tree-sitter",
   "parser": "tree-sitter-kotlin",
   "injectionRegex": "^(kotlin)$",
   "fileTypes": ["kt", "kts", "ktm"],
