@@ -1,0 +1,48 @@
+{
+  "name": "language-kotlin",
+  "author": "lumine-code",
+  "version": "1.0.0",
+  "main": "lib/main",
+  "description": "Kotlin language support.",
+  "keywords": [
+    "jvm",
+    "android",
+    "gradle",
+    "coroutines",
+    "ktor"
+  ],
+  "repository": "https://github.com/lumine-code/language-kotlin",
+  "bugs": {
+    "url": "https://github.com/lumine-code/language-kotlin/issues"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.100.0 <2.0.0"
+  },
+  "scripts": {
+    "test": "lumine --test spec",
+    "lint": "eslint . --max-warnings 0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "consumedServices": {
+    "hyperlink.injection": {
+      "versions": {
+        "^1.0.0": "consumeHyperlinkInjection"
+      }
+    },
+    "todo.injection": {
+      "versions": {
+        "^1.0.0": "consumeTodoInjection"
+      }
+    }
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.8.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-n": "^18.2.2",
+    "globals": "^17.7.0",
+    "prettier": "^3.9.6"
+  }
+}

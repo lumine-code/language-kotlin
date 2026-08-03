@@ -1,0 +1,20 @@
+{
+  "name": "Kotlin",
+  "scopeName": "source.kotlin",
+  "type": "modern-tree-sitter",
+  "parser": "tree-sitter-kotlin",
+  "injectionRegex": "^(kotlin)$",
+  "fileTypes": ["kt", "kts", "ktm"],
+  "comments": {
+    "start": "/ "
+  },
+  "treeSitter": {
+    // Pin a tag or a full SHA, never a branch. Verify the ref is on the main
+    // line before trusting it — `gh api repos/OWNER/REPO/compare/<ref>...HEAD`
+    // reporting `diverged` or a nonzero `behind` means it is not.
+    "parserSource": "github:fwcd/tree-sitter-kotlin#0.3.8",
+    "wasmBuildTool": "tree-sitter-cli#v0.26.11",
+    "grammar": "tree-sitter-kotlin/tree-sitter-kotlin.wasm",
+    "highlightsQuery": "tree-sitter-kotlin/highlights.scm"
+  }
+}

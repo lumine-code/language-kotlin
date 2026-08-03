@@ -1,0 +1,12 @@
+{
+  ".source.kotlin": {
+    "language": {
+      "commentStart": "/ ",
+      "increaseIndentPattern": "\\{[^}\"']*$",
+      "decreaseIndentPattern": "^\\s*\\}"
+    },
+    "bracket-matcher": {
+      "autocompleteCharacters": ["()", "[]", "{}", "\"\"", "''"]
+    }
+  }
+}
