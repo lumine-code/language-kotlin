@@ -9,7 +9,7 @@ const path = require("path");
 
 describe("Kotlin Tree-sitter grammar", () => {
   beforeEach(async () => {
-    await atom.packages.activatePackage("language-kotlin");
+    await lumine.packages.activatePackage("language-kotlin");
   });
 
   it("tokenizes the fixture", async () => {
