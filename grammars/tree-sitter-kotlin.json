@@ -13,7 +13,7 @@
     // line before trusting it — `gh api repos/OWNER/REPO/compare/<ref>...HEAD`
     // reporting `diverged` or a nonzero `behind` means it is not.
     "parserSource": "github:fwcd/tree-sitter-kotlin#0.3.8",
-    "wasmBuildTool": "tree-sitter-cli#v0.26.11",
+    "wasmBuildTool": "tree-sitter-cli#v0.26.13",
     "grammar": "tree-sitter-kotlin/tree-sitter-kotlin.wasm",
     "highlightsQuery": "tree-sitter-kotlin/highlights.scm"
   }
