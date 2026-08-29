@@ -29,10 +29,10 @@
 (class_parameter
 	(simple_identifier) @variable.other.member.kotlin)
 
-(class_body
-	(property_declaration
-		(variable_declaration
-			(simple_identifier) @variable.other.member.kotlin)))
+((simple_identifier) @variable.other.member.kotlin
+	(#is? test.typeAt "parent variable_declaration")
+	(#is? test.typeAt "parent.parent property_declaration")
+	(#is? test.typeAt "parent.parent.parent class_body"))
 
 ; id_1.id_2.id_3: `id_2` and `id_3` are assumed as object properties
 (_

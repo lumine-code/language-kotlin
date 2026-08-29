@@ -13,5 +13,10 @@ fun greet(name: String) {
 }
 // <- punctuation.definition.block.end.bracket.curly
 
+class Greeter {
+    val message = "hi"
+//      ^ variable.other.member
+}
+
 // a comment
 // <- comment
