@@ -20,14 +20,12 @@ describe(`${PACKAGE_NAME} Tree-sitter queries`, () => {
 
   beforeEach(async () => {
     jasmine.useRealClock();
-    await lumine.packages.activatePackage(PACKAGE_NAME);
+    const pack = await lumine.packages.activatePackage(path.resolve(__dirname, ".."));
 
     // Every bundled grammar is registered too; keep only this package's.
-    const packageDir = path.resolve(__dirname, "..");
-    grammars = lumine.grammars
-      .getGrammars({ includeTreeSitter: true })
+    grammars = pack.grammars
       .filter((grammar) => grammar.constructor.name === "TreeSitterGrammar")
-      .filter((grammar) => grammar.grammarFilePath?.startsWith(packageDir));
+      .filter((grammar) => grammar.packageName === PACKAGE_NAME);
   });
 
   it(`registers all ${EXPECTED_GRAMMARS} Tree-sitter grammar config(s)`, () => {

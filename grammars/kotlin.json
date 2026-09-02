@@ -3,7 +3,7 @@
   "scopeName": "source.kotlin",
   "type": "tree-sitter",
   "parser": "tree-sitter-kotlin",
-  "injectionRegex": "^(kotlin)$",
+  "injectionNames": ["kotlin"],
   "fileTypes": ["kt", "kts", "ktm"],
   "comments": {
     "start": "/ "
@@ -14,7 +14,7 @@
     // reporting `diverged` or a nonzero `behind` means it is not.
     "parserSource": "github:fwcd/tree-sitter-kotlin#0.3.8",
     "wasmBuildTool": "tree-sitter-cli#v0.26.13",
-    "grammar": "tree-sitter-kotlin/tree-sitter-kotlin.wasm",
-    "highlightsQuery": "tree-sitter-kotlin/highlights.scm"
+    "grammar": "kotlin.wasm",
+    "highlightsQuery": "kotlin-highlights.scm"
   }
 }
