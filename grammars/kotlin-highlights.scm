@@ -35,9 +35,8 @@
 	(#is? test.typeAt "parent.parent.parent class_body"))
 
 ; id_1.id_2.id_3: `id_2` and `id_3` are assumed as object properties
-(_
-	(navigation_suffix
-		(simple_identifier) @variable.other.member.kotlin))
+(navigation_suffix
+	(simple_identifier) @variable.other.member.kotlin)
 
 (enum_entry
 	(simple_identifier) @constant.other.kotlin)
@@ -121,10 +120,10 @@
 	(simple_identifier) @variable.parameter.kotlin)
 
 ; lambda parameters
-(lambda_literal
-	(lambda_parameters
-		(variable_declaration
-			(simple_identifier) @variable.parameter.kotlin)))
+((variable_declaration
+	(simple_identifier) @variable.parameter.kotlin)
+	(#is? test.typeAt "parent.parent lambda_parameters")
+	(#is? test.typeAt "parent.parent.parent lambda_literal"))
 
 ;;; Function calls
 
@@ -133,10 +132,11 @@
 	. (simple_identifier) @entity.name.function.kotlin)
 
 ; object.function() or object.property.function()
-(call_expression
-	(navigation_expression
-		(navigation_suffix
-			(simple_identifier) @entity.name.function.kotlin) . ))
+((navigation_suffix
+	(simple_identifier) @entity.name.function.kotlin)
+	(#is? test.typeAt "parent.parent navigation_expression")
+	(#is? test.typeAt "parent.parent.parent call_expression")
+	(#is-not? test.typeAt "parent.nextNamedSibling navigation_suffix"))
 
 (call_expression
 	. (simple_identifier) @support.function.builtin.kotlin
@@ -188,8 +188,10 @@
 
 ;;; Literals
 
+((line_comment) @comment.line.kotlin
+	(#set! adjust.endBeforeFirstMatchOf "\\r?$"))
+
 [
-	(line_comment)
 	(multiline_comment)
 	(shebang_line)
 ] @comment.line.kotlin
@@ -216,34 +218,26 @@
 
 ; There are 3 ways to define a regex
 ;    - "[abc]?".toRegex()
-(call_expression
-	(navigation_expression
-		((string_literal) @string.quoted.double.regex.kotlin)
-		(navigation_suffix
-			((simple_identifier) @_IGNORE_.function
-			(#eq? @_IGNORE_.function "toRegex")))))
+((string_literal) @string.quoted.double.regex.kotlin
+	(#is? test.typeAt "parent navigation_expression")
+	(#is? test.typeAt "parent.parent call_expression")
+	(#is? test.textAt "parent.lastNamedChild.firstNamedChild toRegex"))
 
 ;    - Regex("[abc]?")
-(call_expression
-	((simple_identifier) @_IGNORE_.function
-	(#eq? @_IGNORE_.function "Regex"))
-	(call_suffix
-		(value_arguments
-			(value_argument
-				(string_literal) @string.quoted.double.regex.kotlin))))
+((string_literal) @string.quoted.double.regex.kotlin
+	(#is? test.typeAt "parent value_argument")
+	(#is? test.typeAt "parent.parent value_arguments")
+	(#is? test.typeAt "parent.parent.parent call_suffix")
+	(#is? test.textAt "parent.parent.parent.parent.firstNamedChild Regex"))
 
 ;   - Regex.fromLiteral("[abc]?")
-(call_expression
-	(navigation_expression
-		((simple_identifier) @_IGNORE_.class
-		(#eq? @_IGNORE_.class "Regex"))
-		(navigation_suffix
-			((simple_identifier) @_IGNORE_.function
-			(#eq? @_IGNORE_.function "fromLiteral"))))
-	(call_suffix
-		(value_arguments
-			(value_argument
-				(string_literal) @string.quoted.double.regex.kotlin))))
+((string_literal) @string.quoted.double.regex.kotlin
+	(#is? test.typeAt "parent value_argument")
+	(#is? test.typeAt "parent.parent value_arguments")
+	(#is? test.typeAt "parent.parent.parent call_suffix")
+	(#is? test.typeAt "parent.parent.parent.parent.firstNamedChild navigation_expression")
+	(#is? test.textAt "parent.parent.parent.parent.firstNamedChild.firstNamedChild Regex")
+	(#is? test.textAt "parent.parent.parent.parent.firstNamedChild.lastNamedChild.firstNamedChild fromLiteral"))
 
 ;;; Keywords
 
@@ -354,6 +348,18 @@
 	"->"
 ] @keyword.operator.kotlin
 
+; `$name` and `${expr}` splice into a string literal. Keep these patterns
+; rooted on the delimiter tokens so a long raw string remains viewport-local.
+("$" @punctuation.definition.template-expression.begin.kotlin
+	(#is? test.childOfType string_literal)
+	(#is? test.typeAt "nextSibling interpolated_identifier"))
+("${" @punctuation.definition.template-expression.begin.kotlin
+	(#is? test.childOfType string_literal)
+	(#is? test.typeAt "nextSibling interpolated_expression }"))
+("}" @punctuation.definition.template-expression.end.kotlin
+	(#is? test.childOfType string_literal)
+	(#is? test.typeAt "previousSibling interpolated_expression"))
+
 "(" @punctuation.definition.arguments.begin.bracket.round.kotlin
 ")" @punctuation.definition.arguments.end.bracket.round.kotlin
 "[" @punctuation.definition.index.begin.bracket.square.kotlin
@@ -366,11 +372,3 @@
 ";" @punctuation.terminator.statement.kotlin
 ":" @punctuation.separator.type.kotlin
 "::" @punctuation.separator.reference.kotlin
-
-; NOTE: `interpolated_identifier`s can be highlighted in any way
-; `$name` and `${expr}` splice into a string literal.
-(string_literal
-	"$" @punctuation.definition.template-expression.begin.kotlin)
-(string_literal
-	"${" @punctuation.definition.template-expression.begin.kotlin
-	"}" @punctuation.definition.template-expression.end.kotlin)
