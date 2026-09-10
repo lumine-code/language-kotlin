@@ -365,7 +365,8 @@
 "[" @punctuation.definition.index.begin.bracket.square.kotlin
 "]" @punctuation.definition.index.end.bracket.square.kotlin
 "{" @punctuation.definition.block.begin.bracket.curly.kotlin
-"}" @punctuation.definition.block.end.bracket.curly.kotlin
+("}" @punctuation.definition.block.end.bracket.curly.kotlin
+	(#is-not? test.childOfType string_literal))
 
 "." @punctuation.separator.property.kotlin
 "," @punctuation.separator.comma.kotlin
