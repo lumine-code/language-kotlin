@@ -19,12 +19,12 @@ describe("Kotlin highlight query locality", () => {
     await editor.languageMode.atTransactionEnd();
   }
 
-  function capturesForRows(startRow, endRow) {
-    const layer = editor.languageMode.rootLanguageLayer;
-    return layer.queries.highlightsQuery.captures(layer.tree.rootNode, {
+  async function capturesForRows(startRow, endRow) {
+    const groups = await editor.getGrammarQueryCaptureGroups("highlightsQuery", {
       startPosition: new Point(startRow, 0),
       endPosition: new Point(endRow, 0),
     });
+    return groups.find(({ grammar }) => grammar === editor.getGrammar())?.captures ?? [];
   }
 
   function scopesAt(row, text, occurrence = 0) {
@@ -69,8 +69,8 @@ val d = Regex
     for (let i = 1; i < 6000; i++) lines.push(`  value_${i}${i === 5999 ? "" : ","}`);
     lines.push(")");
     await setUp(lines.join("\r\n"));
-    expect(editor.languageMode.rootLanguageLayer.tree.rootNode.hasError).toBe(false);
-    expect(capturesForRows(2998, 3004).length).toBeLessThanOrEqual(96);
+    expect((await editor.getSyntaxDiagnostics()).hasError).toBe(false);
+    expect((await capturesForRows(2998, 3004)).length).toBeLessThanOrEqual(96);
   });
 
   it("keeps navigation and lambda captures local inside 6000-row parents", async () => {
@@ -94,8 +94,8 @@ val d = Regex
     for (let i = 0; i < 6000; i++) navigationLines.push(`  .property${i}`);
     navigationLines.push("  .method()");
     await setUp(navigationLines.join("\r\n"));
-    expect(editor.languageMode.rootLanguageLayer.tree.rootNode.hasError).toBe(false);
-    expect(capturesForRows(2998, 3004).length).toBeLessThanOrEqual(96);
+    expect((await editor.getSyntaxDiagnostics()).hasError).toBe(false);
+    expect((await capturesForRows(2998, 3004)).length).toBeLessThanOrEqual(96);
 
     const lambdaLines = ["val value = {"];
     for (let i = 0; i < 6000; i++) {
@@ -103,8 +103,8 @@ val d = Regex
     }
     lambdaLines.push("  -> argument0", "}");
     await setUp(lambdaLines.join("\r\n"));
-    expect(editor.languageMode.rootLanguageLayer.tree.rootNode.hasError).toBe(false);
-    expect(capturesForRows(2998, 3004).length).toBeLessThanOrEqual(96);
+    expect((await editor.getSyntaxDiagnostics()).hasError).toBe(false);
+    expect((await capturesForRows(2998, 3004)).length).toBeLessThanOrEqual(96);
   });
 
   it("keeps paired interpolation delimiters local inside a 6000-row raw string", async () => {
@@ -131,7 +131,7 @@ val d = Regex
     for (let i = 0; i < 6000; i++) lines.push(`line \${value_${i}}`);
     lines.push('"""');
     await setUp(lines.join("\r\n"));
-    expect(editor.languageMode.rootLanguageLayer.tree.rootNode.hasError).toBe(false);
-    expect(capturesForRows(2998, 3004).length).toBeLessThanOrEqual(96);
+    expect((await editor.getSyntaxDiagnostics()).hasError).toBe(false);
+    expect((await capturesForRows(2998, 3004)).length).toBeLessThanOrEqual(96);
   });
 });
