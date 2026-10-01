@@ -15,6 +15,7 @@
     "parserSource": "github:fwcd/tree-sitter-kotlin#0.3.8",
     "wasmBuildTool": "tree-sitter-cli#v0.27.0",
     "grammar": "kotlin.wasm",
-    "highlightsQuery": "kotlin-highlights.scm"
+    "highlightsQuery": "kotlin-highlights.scm",
+    "injectionsQuery": "kotlin-injections.scm"
   }
 }

@@ -20,11 +20,14 @@ describe("Kotlin highlight query locality", () => {
   }
 
   async function capturesForRows(startRow, endRow) {
-    const groups = await editor.getGrammarQueryCaptureGroups("highlightsQuery", {
-      startPosition: new Point(startRow, 0),
-      endPosition: new Point(endRow, 0),
-    });
-    return groups.find(({ grammar }) => grammar === editor.getGrammar())?.captures ?? [];
+    const queryCaptures = (await editor.getGrammar().getQuery("highlightsQuery")).captures(
+      editor.languageMode.tree.rootNode,
+      {
+        startPosition: new Point(startRow, 0),
+        endPosition: new Point(endRow, 0),
+      },
+    );
+    return queryCaptures;
   }
 
   function scopesAt(row, text, occurrence = 0) {
@@ -69,7 +72,7 @@ val d = Regex
     for (let i = 1; i < 6000; i++) lines.push(`  value_${i}${i === 5999 ? "" : ","}`);
     lines.push(")");
     await setUp(lines.join("\r\n"));
-    expect((await editor.getSyntaxDiagnostics()).hasError).toBe(false);
+    expect(editor.languageMode.tree.rootNode.hasError).toBe(false);
     expect((await capturesForRows(2998, 3004)).length).toBeLessThanOrEqual(96);
   });
 
@@ -94,7 +97,7 @@ val d = Regex
     for (let i = 0; i < 6000; i++) navigationLines.push(`  .property${i}`);
     navigationLines.push("  .method()");
     await setUp(navigationLines.join("\r\n"));
-    expect((await editor.getSyntaxDiagnostics()).hasError).toBe(false);
+    expect(editor.languageMode.tree.rootNode.hasError).toBe(false);
     expect((await capturesForRows(2998, 3004)).length).toBeLessThanOrEqual(96);
 
     const lambdaLines = ["val value = {"];
@@ -103,7 +106,7 @@ val d = Regex
     }
     lambdaLines.push("  -> argument0", "}");
     await setUp(lambdaLines.join("\r\n"));
-    expect((await editor.getSyntaxDiagnostics()).hasError).toBe(false);
+    expect(editor.languageMode.tree.rootNode.hasError).toBe(false);
     expect((await capturesForRows(2998, 3004)).length).toBeLessThanOrEqual(96);
   });
 
@@ -131,7 +134,7 @@ val d = Regex
     for (let i = 0; i < 6000; i++) lines.push(`line \${value_${i}}`);
     lines.push('"""');
     await setUp(lines.join("\r\n"));
-    expect((await editor.getSyntaxDiagnostics()).hasError).toBe(false);
+    expect(editor.languageMode.tree.rootNode.hasError).toBe(false);
     expect((await capturesForRows(2998, 3004)).length).toBeLessThanOrEqual(96);
   });
 });

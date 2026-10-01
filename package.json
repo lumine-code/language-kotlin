@@ -2,10 +2,8 @@
   "name": "language-kotlin",
   "author": "lumine-code",
   "version": "1.0.0",
-  "main": "lib/main",
   "files": [
     "grammars",
-    "lib",
     "settings",
     "spec"
   ],
@@ -30,18 +28,6 @@
     "lint": "eslint . --max-warnings 0",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
-  },
-  "consumedServices": {
-    "hyperlink.injection": {
-      "versions": {
-        "^1.0.0": "consumeHyperlinkInjection"
-      }
-    },
-    "todo.injection": {
-      "versions": {
-        "^1.0.0": "consumeTodoInjection"
-      }
-    }
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
