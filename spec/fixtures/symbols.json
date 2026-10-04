@@ -1,0 +1,52 @@
+{
+  "source.kotlin": {
+    "text": "typealias Alias = String\ninterface Speaker {\n  fun speak(): String\n}\nclass Widget {\n  val count = 1\n  fun greet(name: String): String = name\n}\nobject Registry {}\nenum class Colour { Red, Blue }\nfun String.trimmed(): String = trim()\n// fun Phantom() {}\n",
+    "symbols": [
+      {
+        "name": "Alias",
+        "tag": "type"
+      },
+      {
+        "name": "Speaker",
+        "tag": "interface"
+      },
+      {
+        "name": "speak",
+        "tag": "function"
+      },
+      {
+        "name": "Widget",
+        "tag": "class"
+      },
+      {
+        "name": "count",
+        "tag": "property"
+      },
+      {
+        "name": "greet",
+        "tag": "function"
+      },
+      {
+        "name": "Registry",
+        "tag": "class"
+      },
+      {
+        "name": "Colour",
+        "tag": "enum"
+      },
+      {
+        "name": "Red",
+        "tag": "constant"
+      },
+      {
+        "name": "Blue",
+        "tag": "constant"
+      },
+      {
+        "name": "trimmed",
+        "tag": "function"
+      }
+    ],
+    "absent": ["Phantom"]
+  }
+}

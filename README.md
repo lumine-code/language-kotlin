@@ -5,6 +5,7 @@ Kotlin language support.
 ## Features
 
 - **Grammars**: provides Tree-sitter grammars, built from [tree-sitter-kotlin](https://github.com/fwcd/tree-sitter-kotlin).
+- **Symbols**: types, classes, interfaces, objects, functions, properties and enum entries.
 - **Syntax highlighting**: full tree-sitter grammar coverage for Kotlin files.
 - **Folding**: folds blocks from the parse tree rather than by indentation.
 
