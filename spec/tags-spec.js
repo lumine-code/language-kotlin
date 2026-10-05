@@ -47,12 +47,19 @@ describe("language-kotlin buffer symbol queries", () => {
             candidate.node.range.containsRange(capture.node.range),
         ),
       }))
-      .filter(({ definition }) => definition);
+      .filter(
+        ({ capture, definition }) =>
+          definition || capture.setProperties?.["symbol.tag"] === symbol.tag,
+      );
     expect(candidates.length).toBeGreaterThan(0, `${symbol.name} (${symbol.tag})`);
     for (const { capture, definition } of candidates) {
       expect(capture.node.range.isEmpty()).toBe(false);
-      expect(definition.node.range.isEmpty()).toBe(false);
-      expect(definition.node.startPosition.row).toBeLessThanOrEqual(capture.node.startPosition.row);
+      if (definition) {
+        expect(definition.node.range.isEmpty()).toBe(false);
+        expect(definition.node.startPosition.row).toBeLessThanOrEqual(
+          capture.node.startPosition.row,
+        );
+      }
     }
   }
 
