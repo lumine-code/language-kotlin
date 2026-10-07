@@ -206,7 +206,7 @@
 ] @constant.numeric.kotlin
 
 [
-	"null" ; should be highlighted the same as booleans
+	(null_literal) ; should be highlighted the same as booleans
 	(boolean_literal)
 ] @constant.language.boolean.kotlin
 
@@ -339,26 +339,19 @@
 	"?:"
 	"!!"
 	"is"
-	"!is"
 	"in"
-	"!in"
 	"as"
 	"as?"
 	".."
+	"..<"
 	"->"
 ] @keyword.operator.kotlin
 
 ; `$name` and `${expr}` splice into a string literal. Keep these patterns
 ; rooted on the delimiter tokens so a long raw string remains viewport-local.
-("$" @punctuation.definition.template-expression.begin.kotlin
-	(#is? test.childOfType string_literal)
-	(#is? test.typeAt "nextSibling interpolated_identifier"))
-("${" @punctuation.definition.template-expression.begin.kotlin
-	(#is? test.childOfType string_literal)
-	(#is? test.typeAt "nextSibling interpolated_expression }"))
-("}" @punctuation.definition.template-expression.end.kotlin
-	(#is? test.childOfType string_literal)
-	(#is? test.typeAt "previousSibling interpolated_expression"))
+(interpolation_identifier_start) @punctuation.definition.template-expression.begin.kotlin
+(interpolation_expression_start) @punctuation.definition.template-expression.begin.kotlin
+(interpolation_expression_end) @punctuation.definition.template-expression.end.kotlin
 
 "(" @punctuation.definition.arguments.begin.bracket.round.kotlin
 ")" @punctuation.definition.arguments.end.bracket.round.kotlin

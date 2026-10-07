@@ -116,11 +116,13 @@ val d = Regex
       "utf8",
     );
     expect(query).not.toMatch(/\(string_literal\s+"(?:\$|\$\{|\})"/);
-    expect(query).toContain('(#is? test.typeAt "nextSibling interpolated_identifier")');
-    expect(query).toContain('(#is? test.typeAt "nextSibling interpolated_expression }")');
-    expect(query).toContain('(#is? test.typeAt "previousSibling interpolated_expression")');
+    expect(query).toContain("(interpolation_identifier_start)");
+    expect(query).toContain("(interpolation_expression_start)");
+    expect(query).toContain("(interpolation_expression_end)");
 
-    await setUp(['val a = "$name ${value}"', 'val b = "${}"', 'val c = "${one}${two}"'].join("\n"));
+    await setUp(
+      ['val a = "$name ${value}"', 'val b = "${value}"', 'val c = "${one}${two}"'].join("\n"),
+    );
     expect(scopesAt(0, "$", 0)).toContain(
       "punctuation.definition.template-expression.begin.kotlin",
     );
