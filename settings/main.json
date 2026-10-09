@@ -4,7 +4,7 @@
       "autocompleteCharacters": ["()", "[]", "{}", "\"\"", "''"]
     },
     "editor": {
-      "commentStart": "/ "
+      "commentStart": "// "
     }
   }
 }

@@ -6,7 +6,7 @@
   "injectionNames": ["kotlin"],
   "fileTypes": ["kt", "kts", "ktm"],
   "comments": {
-    "start": "/ "
+    "start": "// "
   },
   "treeSitter": {
     // Pin a tag or a full SHA, never a branch. Verify the ref is on the main
