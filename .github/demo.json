@@ -1,0 +1,16 @@
+{
+  "title": "language-kotlin",
+  "description": "Kotlin syntax highlighting in the editor.",
+  "recordedOn": "2026-10-13",
+  "sourceRevision": "370e5e0eef012548921c944e5d1309b7f37a26a9",
+  "mode": "normal",
+  "fontSettings": "default",
+  "images": [
+    {
+      "file": "demo.png",
+      "label": "Kotlin syntax highlighting at the default editor font size.",
+      "width": 1100,
+      "height": 362
+    }
+  ]
+}
