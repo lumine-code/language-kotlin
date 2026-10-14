@@ -1,16 +1,61 @@
 {
   "title": "language-kotlin",
-  "description": "Kotlin syntax highlighting in the editor.",
-  "recordedOn": "2026-10-13",
-  "sourceRevision": "370e5e0eef012548921c944e5d1309b7f37a26a9",
+  "description": "Kotlin syntax highlighting at the default editor font size.",
+  "recordedOn": "2026-10-14",
+  "sourceRevision": "6703d1a30010af96f348930f11e4c8ed02c1ab54",
+  "themeSourceRevision": "14a69683b0e3238e2bc128fbfae3866c1e4ee9c6",
   "mode": "normal",
   "fontSettings": "default",
+  "scenario": "demo.js",
+  "recipeHash": "b3a59a1cda6309c9d5343d221bb5252b21e507cde0b963325e2797e6bda5accf",
+  "environment": {
+    "platform": "win32",
+    "arch": "x64",
+    "electron": "44.7.0",
+    "chrome": "152.0.7977.130",
+    "devicePixelRatio": 1,
+    "locale": "en-GB",
+    "fontFamily": "Fira Code, Menlo, DejaVu Sans Mono, Consolas, monospace",
+    "fontSize": 14,
+    "themes": ["one-day-syntax", "one-day-ui"]
+  },
+  "viewport": { "width": 1100, "height": 362 },
+  "cornerRadius": 10,
+  "sources": {
+    "editor": {
+      "revision": "c4d7a05fe6960ae6fb041981d6cf13e9c0286b17",
+      "dirty": true,
+      "workingTreeHash": "af0ec098e764416df9522f3c6e555050b520e4700da382b2b983b2ff3742bd0a"
+    },
+    "package": {
+      "revision": "6703d1a30010af96f348930f11e4c8ed02c1ab54",
+      "dirty": true,
+      "workingTreeHash": "442ba28f8ca9f7450d2b05c4f7b7c09ad7a85aa85fa1caf165a2a3a9a87eb742"
+    },
+    "language-kotlin": {
+      "revision": "6703d1a30010af96f348930f11e4c8ed02c1ab54",
+      "dirty": true,
+      "workingTreeHash": "442ba28f8ca9f7450d2b05c4f7b7c09ad7a85aa85fa1caf165a2a3a9a87eb742"
+    },
+    "one-theme": {
+      "revision": "14a69683b0e3238e2bc128fbfae3866c1e4ee9c6",
+      "dirty": true,
+      "workingTreeHash": "50ec2f83a6347dd8113870992ec4eb2be4014f3d9e12213c2f51b543f1eca793"
+    }
+  },
+  "fixtures": [
+    {
+      "file": "example.kt",
+      "sha256": "252afa7c4d77f4c467de1a4545b62b01672169a19197788255d015f5c360996f"
+    }
+  ],
   "images": [
     {
       "file": "demo.png",
       "label": "Kotlin syntax highlighting at the default editor font size.",
       "width": 1100,
-      "height": 362
+      "height": 362,
+      "sha256": "0c805c11b0940b90edd7aece740e06784a113239107775826919772371f8f113"
     }
   ]
 }
