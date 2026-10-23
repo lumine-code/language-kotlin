@@ -18,6 +18,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ----- BEGIN THIRD-PARTY LICENSE: upstream:nvim-treesitter_nvim-treesitter -----
 Source: https://github.com/nvim-treesitter/nvim-treesitter
 Revision: f8ab59861eed4a1c168505e3433462ed800f2bae
+Additional query adaptations: selected highlights, folds and regex injections from nvim-treesitter/nvim-treesitter at 29212d826054bb2948fa9d3a99eca9bf6a050eb2; literal Regex.fromLiteral text remains ordinary string content.
 
 Original file: LICENSE
 

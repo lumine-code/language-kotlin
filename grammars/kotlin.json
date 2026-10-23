@@ -17,6 +17,7 @@
     "grammar": "kotlin.wasm",
     "tagsQuery": "kotlin-tags.scm",
     "highlightsQuery": "kotlin-highlights.scm",
-    "injectionsQuery": "kotlin-injections.scm"
+    "injectionsQuery": "kotlin-injections.scm",
+    "foldsQuery": "kotlin-folds.scm"
   }
 }

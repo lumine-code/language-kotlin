@@ -1,12 +1,35 @@
 ;; Based on the nvim-treesitter highlighting, which is under the Apache license.
 ;; See https://github.com/nvim-treesitter/nvim-treesitter/blob/f8ab59861eed4a1c168505e3433462ed800f2bae/queries/kotlin/highlights.scm
 ;;
-;; The only difference in this file is that queries using #lua-match?
-;; have been removed.
+;; Later query refinements are translated to Lumine leaf-rooted predicates.
 
 ;;; Identifiers
 
 (simple_identifier) @variable.other.kotlin
+
+((simple_identifier) @constant.other.kotlin
+  (#match? @constant.other.kotlin "^[A-Z][A-Z0-9_]*$"))
+((simple_identifier) @support.type.kotlin
+  (#is? test.typeAt "parent identifier")
+  (#is? test.typeAt "parent.parent import_header")
+  (#match? @support.type.kotlin "^[A-Z]"))
+((simple_identifier) @entity.name.function.kotlin
+  (#is? test.typeAt "parent identifier")
+  (#is? test.typeAt "parent.parent import_header")
+  (#is? test.last)
+  (#match? @entity.name.function.kotlin "^[a-z]"))
+((type_identifier) @entity.name.type.alias.kotlin
+  (#is? test.typeAt "parent import_alias")
+  (#is? test.matchAt "parent.previousNamedSibling.lastNamedChild ^[A-Z]"))
+((type_identifier) @entity.name.function.kotlin
+  (#is? test.typeAt "parent import_alias")
+  (#is? test.matchAt "parent.previousNamedSibling.lastNamedChild ^[a-z]"))
+((type_identifier) @entity.name.type.alias.kotlin
+  (#is? test.childOfType type_alias))
+((quest) @punctuation.definition.nullable.kotlin
+  (#is? test.childOfType nullable_type))
+((simple_identifier) @entity.name.function.kotlin
+  (#is? test.childOfType callable_reference))
 
 ; `it` keyword inside lambdas
 ; FIXME: This will highlight the keyword outside of lambdas since tree-sitter
@@ -191,10 +214,10 @@
 ((line_comment) @comment.line.kotlin
 	(#set! adjust.endBeforeFirstMatchOf "\\r?$"))
 
-[
-	(multiline_comment)
-	(shebang_line)
-] @comment.line.kotlin
+(multiline_comment) @comment.block.kotlin
+((multiline_comment) @comment.block.documentation.kotlin
+  (#match? @comment.block.documentation.kotlin "^/\\*\\*[^*]"))
+(shebang_line) @keyword.control.directive.kotlin
 
 (real_literal) @constant.numeric.float.kotlin
 [
