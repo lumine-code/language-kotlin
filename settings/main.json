@@ -4,7 +4,11 @@
       "autocompleteCharacters": ["()", "[]", "{}", "\"\"", "''"]
     },
     "editor": {
-      "commentStart": "// "
+      "commentStart": "// ",
+      "commentDelimiters": {
+        "line": "//",
+        "block": ["/*", "*/"]
+      }
     }
   }
 }
