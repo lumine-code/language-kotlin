@@ -50,6 +50,21 @@ describe("Kotlin upstream query semantics", () => {
     expect(editor.isFoldableAtBufferRow(0)).toBe(true);
   });
 
+  it("selects a named pattern argument without treating another named string as regex", async () => {
+    editor.setText(
+      'val named = Regex(options = emptySet(), pattern = "[a-z]+")\nval other = Regex("[0-9]+", extra = "literal")\n',
+    );
+    expect(await editor.whenGrammarSettled()).toBe(true);
+    expect(editor.languageMode.tree.rootNode.hasError).toBe(false);
+    const scopes = (row, text) =>
+      editor
+        .scopeDescriptorForBufferPosition([row, editor.lineTextForBufferRow(row).indexOf(text)])
+        .getScopesArray();
+    expect(scopes(0, "a-z")).toContain("source.regexp");
+    expect(scopes(1, "0-9")).toContain("source.regexp");
+    expect(scopes(1, "literal")).not.toContain("source.regexp");
+  });
+
   it("distinguishes KDoc from ordinary block comments", async () => {
     editor.setText("/** API documentation */\nfun greet() {}\n/* ordinary block */\n");
     expect(await editor.whenGrammarSettled()).toBe(true);

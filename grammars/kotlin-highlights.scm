@@ -290,6 +290,9 @@
 
 ("fun") @storage.type.function.kotlin
 
+(context_receiver "context" @keyword.control.kotlin)
+(backing_field "field" @keyword.control.kotlin)
+
 (jump_expression) @keyword.control.return.kotlin
 
 [

@@ -1,6 +1,7 @@
 ----- BEGIN THIRD-PARTY LICENSE: parser:fwcd_tree-sitter-kotlin -----
 Source: https://github.com/fwcd/tree-sitter-kotlin
-Revision: 1852ea17b7f60fb3f9d84e0b1555d56b46b39fb1
+Commit: d6af96d2e23ef0a8ff5ab512864378cf08fba311
+Ref: d6af96d2e23ef0a8ff5ab512864378cf08fba311
 
 Original file: LICENSE
 
