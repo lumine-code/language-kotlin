@@ -3,6 +3,9 @@ Source: https://github.com/fwcd/tree-sitter-kotlin
 Commit: d6af96d2e23ef0a8ff5ab512864378cf08fba311
 Ref: d6af96d2e23ef0a8ff5ab512864378cf08fba311
 
+Parser source: github:fwcd/tree-sitter-kotlin#d6af96d2e23ef0a8ff5ab512864378cf08fba311
+Resolved commit: d6af96d2e23ef0a8ff5ab512864378cf08fba311
+
 Original file: LICENSE
 
 The MIT License (MIT)
