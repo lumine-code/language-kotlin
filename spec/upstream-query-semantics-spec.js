@@ -47,7 +47,9 @@ describe("Kotlin upstream query semantics", () => {
   it("folds an unindented function body", async () => {
     editor.setText("fun greet() {\nprintln(1)\nprintln(2)\n}\n");
     expect(await editor.whenGrammarSettled()).toBe(true);
-    expect(editor.isFoldableAtBufferRow(0)).toBe(true);
+    await editor.foldBufferRow(0);
+    expect(editor.isFoldedAtBufferRow(0)).toBe(true);
+    expect(editor.isFoldedAtBufferRow(1)).toBe(true);
   });
 
   it("selects a named pattern argument without treating another named string as regex", async () => {
